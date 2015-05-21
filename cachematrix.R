@@ -2,31 +2,33 @@
 ## functions do
 
 ## Write a short comment describing this function
+## Matrix inversion is usually a costly computation and there may be some benefit 
+## to caching the inverse of a matrix rather than compute it repeatedly. The 
+## following two functions are used to cache the inverse of a matrix. 
+
 
 makeCacheMatrix <- function(x = matrix()) {
-<<<<<<< HEAD
-  inv <- NULL 
+    inv <- NULL 
     set <- function(y) { 
     x <<- y 
-    inv <<- NULL                                              
-
+    inv <<- NULL                                 
 }
-get <- function() x 
-    setinverse <- function(inverse) inv <<- inverse 
+  get <- function() x 
+   setinverse <- function(inverse) inv <<- inverse 
    getinverse <- function() inv 
-    list(set=set, get=get, setinverse=setinverse, getinverse=getinverse) 
-}
-=======
-
+   list(set=set, get=get, setinverse=setinverse, getinverse=getinverse) 
 }
 
->>>>>>> 7f657dd22ac20d22698c53b23f0057e1a12c09b7
 
 ## Write a short comment describing this function
+# The following function returns the inverse of the matrix. It first checks if 
+# the inverse has already been computed. If so, it gets the result and skips the 
+# computation. If not, it computes the inverse, sets the value in the cache via 
+# setinverse function. 
 
+# This function assumes that the matrix is always invertible. 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-<<<<<<< HEAD
   inv <- x$getinverse() 
    if(!is.null(inv)) { 
      message("getting cached data.") 
@@ -37,6 +39,29 @@ cacheSolve <- function(x, ...) {
    x$setinverse(inv) 
    inv 
   
-=======
->>>>>>> 7f657dd22ac20d22698c53b23f0057e1a12c09b7
 }
+
+
+## x = rbind(c(1, -1/4), c(-1/4, 1)) 
+## > m = makeCacheMatrix(x) 
+## > m$get() 
+##       [,1]  [,2] 
+## [1,]  1.00 -0.25 
+## [2,] -0.25  1.00 
+
+
+## No cache in the first run 
+## > cacheSolve(m) 
+##           [,1]      [,2] 
+## [1,] 1.0666667 0.2666667 
+## [2,] 0.2666667 1.0666667 
+ 
+
+## Retrieving from the cache in the second run 
+## > cacheSolve(m) 
+## getting cached data. 
+##           [,1]      [,2] 
+## [1,] 1.0666667 0.2666667 
+## [2,] 0.2666667 1.0666667 
+  
+
